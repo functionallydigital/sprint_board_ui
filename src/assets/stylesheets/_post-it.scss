@@ -1,0 +1,54 @@
+.post-it {
+  &-wrapper {
+    padding:7px;
+  }
+
+  padding: 5px 15px;
+  -webkit-transform: rotate(random(3) + deg);
+  -moz-transform: rotate(random(3) + deg);
+  -o-transform: rotate(random(3) + deg);
+  -ms-transform: rotate(random(3) + deg);
+  transform: rotate(random(3) + deg);
+  -webkit-box-shadow: 10px 10px 5px -5px rgba(204,204,204,1);
+  -moz-box-shadow: 10px 10px 5px -5px rgba(204,204,204,1);
+  box-shadow: 10px 10px 5px -5px rgba(204,204,204,1);
+
+  &.fitted {
+    display: inline-block;
+  }
+
+  &.right {
+    float: right;
+  }
+
+  &.meta {
+    background-color: #f7f7f2;
+  }
+
+  &.button {
+    background-color: #89119b;
+    color: #FFFFFF;
+    padding: 10px 15px;
+    margin-bottom: 10px
+  }
+
+  &.user {
+    background-color: #23d31d;
+  }
+
+  &.step {
+    background-color: #0065ff;
+  }
+
+  &.epic {
+    background-color: #ff66f2;
+  }
+
+  &.story {
+   background-color: #ffaa00;
+  }
+
+  &.task {
+    background-color: #fcfc00;
+  }
+}
