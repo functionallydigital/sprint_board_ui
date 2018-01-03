@@ -20,23 +20,27 @@ class ProjectList extends Component {
     if (user) {
       return (
         <div className='project-list'>
-          <h1 className='heading'>
-            Welcome to the sprint board {user.name}.
-          </h1>
+          <div className='heading'>
+            <h1>
+              Welcome to the sprint board {user.first_name}.
+            </h1>
+          </div>
 
-          <div className='row'>
-            {projects && projects.map((project) =>
-              <ProjectIndexPostIt
-                key={project.id}
-                project={project}
-                openProject={this.openProject.bind(this)}
-                />
-            )}
+          <div className='body-wrapper'>
+            <div className='row'>
+              {projects && projects.map((project) =>
+                <ProjectIndexPostIt
+                  key={project.id}
+                  project={project}
+                  openProject={this.openProject.bind(this)}
+                  />
+              )}
 
-            <AddPostIt width='3'
-              type='meta'
-              title='Start new project'
-              openAdd={this.startProject.bind(this)} />
+              <AddPostIt width='2'
+                type='meta'
+                title='Start new project'
+                openAdd={this.startProject.bind(this)} />
+            </div>
           </div>
         </div>
       )

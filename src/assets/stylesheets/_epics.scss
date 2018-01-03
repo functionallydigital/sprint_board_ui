@@ -1,18 +1,27 @@
 .epic-dashboard {
-  display: flex;
+  .body-wrapper {
+    display: flex;
+    padding-top: 0px;
+    padding-bottom: 0px;
 
-  .epic-details {
-    padding: 20px 25px;
-  }
-
-  @media (min-width: 768px) {
     .epic-details {
-      border-right: 2px solid #444444;
-    }
-  }
+      padding: 30px 25px;
 
-  .epic-stories {
-    height: 100vh;
-    overflow: scroll;
+      .progress-row {
+        margin-top: 20px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .epic-details {
+        border-right: 2px solid #444444;
+      }
+    }
+
+    .epic-stories {
+      height: 100vh;
+      overflow: scroll;
+      padding: 20px;
+    }
   }
 }

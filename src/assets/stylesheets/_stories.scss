@@ -3,13 +3,29 @@
 }
 
 .story-dashboard {
-  .story-overview {
-    padding: 20px 25px;
-  }
+  .body-wrapper {
+    display: flex;
+    padding-top: 0px;
+    padding-bottom: 0px;
 
-  @media (min-width: 768px) {
     .story-overview {
-      border-right: 2px solid #444444;
+      padding: 30px 25px;
+      
+      .progress-row {
+        margin-top: 20px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .story-overview {
+        border-right: 2px solid #444444;
+      }
+    }
+
+    .story-tasks {
+      height: 100vh;
+      overflow: scroll;
+      padding: 20px;
     }
   }
 }

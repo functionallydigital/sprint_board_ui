@@ -40,12 +40,14 @@ class ProjectEdit extends Component {
     const project = this.state.project;
     return (
       <div className='project-edit'>
-        { project && 
-          <ProjectForm project={this.state.project}
-            buttonText='Update'
-            session={this.props.session}
-            save={this.updateProject.bind(this)} />
-        }
+        <div className='body-wrapper'>
+          { project && 
+            <ProjectForm project={this.state.project}
+              buttonText='Update'
+              session={this.props.session}
+              save={this.updateProject.bind(this)} />
+          }
+        </div>
       </div>
     )
   }

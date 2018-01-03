@@ -89,46 +89,48 @@ class EpicDashboard extends Component {
       <div className='row epic-dashboard'>
         { epic && this.loadPopups(epic)}
 
-        <div className='col-sm-6 epic-details'>
-          <div className='post-it-wrapper'>
-            <div className='post-it epic'>
-              { epic && 
-                <EpicForm epic={this.state.epic}
-                  priorities={this.props.priorities}
-                  cancel={this.loadProjectDashboard.bind(this)}
-                  cancelButton='Return to project dashboard'
-                  save={this.updateEpic.bind(this)}
-                  submitButton='Update' />
-              }
+        <div className='body-wrapper'>
+          <div className='col-sm-6 epic-details'>
+            <div className='post-it-wrapper'>
+              <div className='post-it epic'>
+                { epic && 
+                  <EpicForm epic={this.state.epic}
+                    priorities={this.props.priorities}
+                    cancel={this.loadProjectDashboard.bind(this)}
+                    cancelButton='Return to project dashboard'
+                    save={this.updateEpic.bind(this)}
+                    submitButton='Update' />
+                }
+              </div>
+            </div>
+
+            <div className='row progress-row'>
+              <div className='col-sm-6'>
+                { epic && 
+                  <ProgressPostIt type='epic'
+                    partSingular='story'
+                    partPlural='stories'
+                    progress={epic.progress} />
+                }
+              </div>
+
+              <AddPostIt width='4 col-sm-offset-1'
+                type='story'
+                title='Add new story'
+                openAdd={this.toggleShowAddStory.bind(this)} />
             </div>
           </div>
 
-          <div className='row'>
-            <div className='col-sm-6'>
-              { epic && 
-                <ProgressPostIt type='epic'
-                  partSingular='story'
-                  partPlural='stories'
-                  progress={epic.progress} />
-              }
-            </div>
-
-            <AddPostIt width='4 col-sm-offset-1'
-              type='story'
-              title='Add new story'
-              openAdd={this.toggleShowAddStory.bind(this)} />
+          <div className='col-sm-6 epic-stories'>
+            {epic && this.state.epic.stories.map((story) =>
+              <StoryOverviewPostIt key={story.id}
+                projectId={this.props.projectId}
+                story={story}
+                session={this.props.session}
+                history={this.props.history}
+                updateStoryList={this.removeStoryFromList.bind(this)} />
+            )}
           </div>
-        </div>
-
-        <div className='col-sm-6 epic-stories'>
-          {epic && this.state.epic.stories.map((story) =>
-            <StoryOverviewPostIt key={story.id}
-              projectId={this.props.projectId}
-              story={story}
-              session={this.props.session}
-              history={this.props.history}
-              updateStoryList={this.removeStoryFromList.bind(this)} />
-          )}
         </div>
       </div>
     )

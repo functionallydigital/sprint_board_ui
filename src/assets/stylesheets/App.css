@@ -1,27 +1,5 @@
-h1, h2, h3 {
-  margin-top: 10px; }
-
-.capitalize {
-  text-transform: capitalize; }
-
-.clickable {
-  cursor: pointer; }
-
-.add-icon {
-  text-align: center;
-  margin-bottom: 20px; }
-  .add-icon img {
-    max-width: 40%; }
-
-.delete-icon {
-  padding-top: 10px;
-  max-width: 20px; }
-
-.edit-icon {
-  max-width: 20px; }
-
-.italics {
-  font-style: italic; }
+.navbar {
+  margin-bottom: 0px; }
 
 .Select {
   margin-bottom: 15px;
@@ -42,6 +20,39 @@ h1, h2, h3 {
   margin-left: auto;
   margin-right: auto; }
 
+.clickable {
+  cursor: pointer; }
+
+.heading {
+  padding: 10px 50px 20px;
+  border-bottom: 2px solid #444444;
+  margin-bottom: 20px; }
+
+.body-wrapper {
+  padding: 30px 50px; }
+
+.add-icon {
+  text-align: center;
+  margin-bottom: 20px; }
+  .add-icon img {
+    max-width: 40%; }
+
+.delete-icon {
+  padding-top: 10px;
+  max-width: 20px; }
+
+.edit-icon {
+  max-width: 20px; }
+
+h1, h2, h3 {
+  margin-top: 10px; }
+
+.capitalize {
+  text-transform: capitalize; }
+
+.italics {
+  font-style: italic; }
+
 .form-row {
   padding: 10px 15px; }
   .form-row input {
@@ -49,11 +60,11 @@ h1, h2, h3 {
 
 .post-it {
   padding: 5px 15px;
-  -webkit-transform: rotate(1deg);
-  -moz-transform: rotate(1deg);
-  -o-transform: rotate(3deg);
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(1deg);
   -ms-transform: rotate(1deg);
-  transform: rotate(1deg);
+  transform: rotate(2deg);
   -webkit-box-shadow: 10px 10px 5px -5px #cccccc;
   -moz-box-shadow: 10px 10px 5px -5px #cccccc;
   box-shadow: 10px 10px 5px -5px #cccccc; }
@@ -90,23 +101,26 @@ h1, h2, h3 {
   margin-top: 75px;
   padding-top: 25px; }
 
-.project-list .heading, .project-create .heading {
-  border-bottom: 2px solid #444444;
-  padding-bottom: 20px;
-  margin-bottom: 20px; }
+.project-dashboard .heading {
+  padding-bottom: 35px;
+  padding-top: 25px;
+  margin-bottom: 0px; }
 
-.project-dashboard .dashboard-lead {
-  border-bottom: 2px solid #444444;
-  padding-bottom: 20px; }
-
-.project-dashboard .dashboard-main {
+.project-dashboard .body-wrapper {
+  padding-top: 0px;
+  padding-bottom: 0px;
   display: flex; }
-  .project-dashboard .dashboard-main .epic-list, .project-dashboard .dashboard-main .user-list {
-    padding: 20px 25px; }
+  .project-dashboard .body-wrapper .epic-list, .project-dashboard .body-wrapper .user-list {
+    padding: 30px 25px; }
 
 @media (min-width: 768px) {
   .project-dashboard .epic-list {
     border-right: 2px solid #444444; } }
+
+.project-backlog .heading {
+  padding-bottom: 35px;
+  padding-top: 25px;
+  margin-bottom: 0px; }
 
 .project-backlog .backlog-lead {
   border-bottom: 2px solid #444444;
@@ -117,23 +131,41 @@ h1, h2, h3 {
   .project-backlog .backlog-list .story-description {
     margin-bottom: 40px; }
 
-.epic-dashboard {
-  display: flex; }
-  .epic-dashboard .epic-details {
-    padding: 20px 25px; }
+.project-roadmap .roadmap-heading {
+  border-bottom: 2px solid #444444;
+  padding-bottom: 20px; }
+
+.epic-dashboard .body-wrapper {
+  display: flex;
+  padding-top: 0px;
+  padding-bottom: 0px; }
+  .epic-dashboard .body-wrapper .epic-details {
+    padding: 30px 25px; }
+    .epic-dashboard .body-wrapper .epic-details .progress-row {
+      margin-top: 20px; }
   @media (min-width: 768px) {
-    .epic-dashboard .epic-details {
+    .epic-dashboard .body-wrapper .epic-details {
       border-right: 2px solid #444444; } }
-  .epic-dashboard .epic-stories {
+  .epic-dashboard .body-wrapper .epic-stories {
     height: 100vh;
-    overflow: scroll; }
+    overflow: scroll;
+    padding: 20px; }
 
 .story-details {
   margin-top: 20px; }
 
-.story-dashboard .story-overview {
-  padding: 20px 25px; }
-
-@media (min-width: 768px) {
-  .story-dashboard .story-overview {
-    border-right: 2px solid #444444; } }
+.story-dashboard .body-wrapper {
+  display: flex;
+  padding-top: 0px;
+  padding-bottom: 0px; }
+  .story-dashboard .body-wrapper .story-overview {
+    padding: 30px 25px; }
+    .story-dashboard .body-wrapper .story-overview .progress-row {
+      margin-top: 20px; }
+  @media (min-width: 768px) {
+    .story-dashboard .body-wrapper .story-overview {
+      border-right: 2px solid #444444; } }
+  .story-dashboard .body-wrapper .story-tasks {
+    height: 100vh;
+    overflow: scroll;
+    padding: 20px; }

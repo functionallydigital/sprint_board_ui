@@ -3,6 +3,7 @@ import ProjectDashboard from './ProjectDashboard';
 import ProjectEdit from './ProjectEdit';
 import ProjectCreate from './ProjectCreate';
 import ProjectBacklog from './ProjectBacklog';
+import ProjectRoadmap from './ProjectRoadmap';
 import Epic from '../epic/Epic';
 import Story from '../story/Story';
 import { Redirect, Switch, Route } from 'react-router-dom';
@@ -41,6 +42,14 @@ class Project extends Component {
     )
   }
 
+  loadProjectRoadmap(props) {
+    return (
+      <ProjectRoadmap projectId={props.match.params.projectId}
+        session={this.props.session}
+        {...props} />
+    )
+  }
+
   loadStory(props) {
     return (
       <Story projectId={props.match.params.projectId}
@@ -67,6 +76,7 @@ class Project extends Component {
     const projectBacklogUrl = `${this.props.match.url}/:projectId/backlog`;
     const storyUrl = `${this.props.match.url}/:projectId/story`;
     const epicUrl = `${this.props.match.url}/:projectId/epic`;
+    const roadmapUrl = `${this.props.match.url}/:projectId/roadmap`;
     if (user) {
       return (
         <Switch>
@@ -84,6 +94,9 @@ class Project extends Component {
           }/>
           <Route path={projectBacklogUrl}
             render={(props) => {return this.loadProjectBacklog(props)}
+          }/>
+          <Route path={roadmapUrl}
+            render={(props) => {return this.loadProjectRoadmap(props)}
           }/>
           <Route path={dashboardUrl}
             render={(props) => {return this.loadDashboard(props)}

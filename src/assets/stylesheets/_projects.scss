@@ -1,27 +1,31 @@
 /// List
+
+.project-list {
+  
+}
+
 /// Create
 
-.project-list, .project-create {
-  .heading {
-    border-bottom: 2px solid #444444;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-  }
+.project-create {
+
 }
 
 /// Dashboard
 
 .project-dashboard {
-  .dashboard-lead {
-    border-bottom: 2px solid #444444;
-    padding-bottom: 20px;
+  .heading {
+    padding-bottom: 35px;
+    padding-top: 25px;
+    margin-bottom: 0px;
   }
 
-  .dashboard-main {
+  .body-wrapper {
+    padding-top: 0px;
+    padding-bottom: 0px;
     display: flex;
 
     .epic-list, .user-list {
-      padding: 20px 25px;
+      padding: 30px 25px;
     }
   }
 
@@ -35,6 +39,12 @@
 /// Backlog
 
 .project-backlog {
+  .heading {
+    padding-bottom: 35px;
+    padding-top: 25px;
+    margin-bottom: 0px;
+  }
+  
   .backlog-lead {
     border-bottom: 2px solid #444444;
     padding-bottom: 20px;
@@ -46,5 +56,14 @@
     .story-description {
       margin-bottom: 40px;
     }
+  }
+}
+
+/// Roadmap
+
+.project-roadmap {
+  .roadmap-heading {
+    border-bottom: 2px solid #444444;
+    padding-bottom: 20px;
   }
 }
