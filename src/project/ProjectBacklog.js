@@ -33,31 +33,35 @@ class ProjectBacklog extends Component {
     const project = this.state.project;
     return (
       <div className='project-backlog'>
-        <div className='row backlog-lead'>
-          <div className='col-sm-4'>
-            {project && 
-              <ProjectHeadingPostIt heading={project.name + ' Backlog'} />
-            }
-          </div>
+        <div className='heading'>
+          <div className='row'>
+            <div className='col-sm-4'>
+              {project && 
+                <ProjectHeadingPostIt heading={project.name + ' Backlog'} />
+              }
+            </div>
 
-          <div className='col-sm-8'>
-            <div className='post-it button fitted clickable right' onClick={this.openDashboard.bind(this)}>
-              View Dashboard
+            <div className='col-sm-8'>
+              <div className='post-it button fitted clickable right' onClick={this.openDashboard.bind(this)}>
+                View Dashboard
+              </div>
             </div>
           </div>
         </div>
 
-        <div className='backlog-list'>
-          <div className='row'>
-            <div className='col-sm-8'>
-              {project && project.stories.map((story) =>
-                <StoryBacklogPostIt 
-                  key={story.id}
-                  projectId={project.id}
-                  story={story}
-                  session={this.props.session}
-                  history={this.props.history} />
-              )}
+        <div className='body-wrapper'>
+          <div className='backlog-list'>
+            <div className='row'>
+              <div className='col-sm-8'>
+                {project && project.stories.map((story) =>
+                  <StoryBacklogPostIt 
+                    key={story.id}
+                    projectId={project.id}
+                    story={story}
+                    session={this.props.session}
+                    history={this.props.history} />
+                )}
+              </div>
             </div>
           </div>
         </div>

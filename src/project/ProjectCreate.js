@@ -22,10 +22,14 @@ class Story extends Component {
   render() {
     return (
       <div className='project-create'>
-        <h2 className='heading'>Start New Project</h2>
+        <div className='heading'>
+          <h2>Start New Project</h2>
+        </div>
 
-        <ProjectForm buttonText='Create'
-            save={this.createProject.bind(this)} />
+        <div className='body-wrapper'>
+          <ProjectForm buttonText='Create'
+              save={this.createProject.bind(this)} />
+        </div>
       </div>
     )
   }

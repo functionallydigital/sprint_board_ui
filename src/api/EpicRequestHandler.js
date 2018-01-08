@@ -41,3 +41,19 @@ export function updateEpic(session, epic) {
       console.error(error);
     });
 }
+
+export function updateEpicSprint(session, epicId, sprint) {
+  return fetch(`${global.apiUrl}/epics/${epicId}/update_sprint_number`, {
+      method: 'PUT',
+      headers : {
+        'Accept' : 'application/json',
+        'Content-Type': 'application/json',
+        'SessionKey' : session.session_key
+      },
+      body: JSON.stringify(sprint)
+    })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error(error);
+    });
+}

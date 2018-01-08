@@ -137,3 +137,15 @@ export function addProgressStep(session, projectId, step) {
     });
 }
 
+export function loadProjectRoadmap(session, projectId) {
+  return fetch(`${global.apiUrl}/projects/${projectId}/roadmap`, {
+      headers: {
+        'SessionKey': session.session_key
+      }
+    })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error(error);
+    });
+}
+

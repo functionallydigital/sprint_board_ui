@@ -39,11 +39,12 @@ class ProjectDashboard extends Component {
 
   openEpic(epicId) {
     const history = this.props.history;
-    history.push(this.props.match.url + '/epic/' + epicId)
+    history.push(this.props.match.url + '/epic/' + epicId);
   }
 
   openRoadmap() {
-    console.log('open roadmap');
+    const history = this.props.history;
+    history.push(this.props.match.url + '/roadmap');
   }
 
   editProject() {
@@ -124,79 +125,84 @@ class ProjectDashboard extends Component {
     return (
       <div className='project-dashboard'>
         { this.loadPopUps(project) }
-        <div className='row dashboard-lead'>
-          <div className='col-sm-4'>
-            {project && 
-              <ProjectOverviewPostIt name={project.name}
-                description={project.description}
-                startDate={project.start_date}
-                endDate={project.end_date}
-                editProject={this.editProject.bind(this)} />
-            }
-          </div>
 
-          <div className='col-sm-6'>
-            {project && 
-              <SprintOverviewPostIt sprint_start={project.sprint_start}
-                sprint_end={project.sprint_end}
-                sprint_completion={project.sprint_completion} />
-            }
-          </div>
-
-          <div className='col-sm-2'>
-            <div className='post-it button fitted clickable right' onClick={this.toggleDeleteConfirmation.bind(this)}>
-              Delete Project
+        <div className='heading'>
+          <div className='row'>
+            <div className='col-sm-4'>
+              {project && 
+                <ProjectOverviewPostIt name={project.name}
+                  description={project.description}
+                  startDate={project.start_date}
+                  endDate={project.end_date}
+                  editProject={this.editProject.bind(this)} />
+              }
             </div>
 
-            <div className='post-it button fitted clickable right' onClick={this.openRoadmap.bind(this)}>
-              Project Roadmap
+            <div className='col-sm-6'>
+              {project && 
+                <SprintOverviewPostIt sprint_start={project.sprint_start}
+                  sprint_end={project.sprint_end}
+                  sprint_completion={project.sprint_completion} />
+              }
+            </div>
+
+            <div className='col-sm-2'>
+              <div className='post-it button fitted clickable right' onClick={this.toggleDeleteConfirmation.bind(this)}>
+                Delete Project
+              </div>
+
+              <div className='post-it button fitted clickable right' onClick={this.openRoadmap.bind(this)}>
+                Project Roadmap
+              </div>
             </div>
           </div>
         </div>
 
-        <div className='row dashboard-main'>
-          <div className='col-sm-7 epic-list'>
-            <div className='post-it meta fitted'>
-              <h3>Epics</h3>
+        <div className='body-wrapper'>
+          <div className='row'>
+            <div className='col-sm-7 epic-list'>
+              <div className='post-it meta fitted'>
+                <h3>Epics</h3>
+              </div>
+
+              <div className='post-it button fitted clickable right' onClick={this.openBacklog.bind(this)}>
+                View Backlog
+              </div>
+
+              <div className='row'>
+                {project && project.epics.map((epic) =>
+                  <EpicOverviewPostIt key={epic.id}
+                    id={epic.id}
+                    name={epic.name}
+                    priority={epic.priority}
+                    storyCount={epic.story_count}
+                    openEpic={this.openEpic.bind(this)} />
+                )}
+
+                <AddPostIt width='4'
+                  type='epic'
+                  title='Add new epic'
+                  openAdd={this.toggleShowEpicAdder.bind(this)} />
+              </div>
             </div>
 
-            <div className='post-it button fitted clickable right' onClick={this.openBacklog.bind(this)}>
-              View Backlog
-            </div>
+            <div className='col-sm-5 user-list'>
+              <div className='post-it meta fitted'>
+                <h3>Team</h3>
+              </div>
 
-            <div className='row'>
-              {project && project.epics.map((epic) =>
-                <EpicOverviewPostIt key={epic.id}
-                  id={epic.id}
-                  name={epic.name}
-                  priority={epic.priority}
-                  storyCount={epic.story_count}
-                  openEpic={this.openEpic.bind(this)} />
-              )}
+              <div className='row'>
+                {project && this.state.project.users.map((user) =>
+                  <ProjectUserPostIt key={user.id}
+                    name={user.name}
+                    role={user.role} />
+                )}
 
-              <AddPostIt width='4'
-                type='epic'
-                title='Add new epic'
-                openAdd={this.toggleShowEpicAdder.bind(this)} />
-            </div>
-          </div>
-
-          <div className='col-sm-5 user-list'>
-            <div className='post-it meta fitted'>
-              <h3>Team</h3>
-            </div>
-
-            <div className='row'>
-              {project && this.state.project.users.map((user) =>
-                <ProjectUserPostIt key={user.id}
-                  name={user.name}
-                  role={user.role} />
-              )}
-
-              <AddPostIt width='4'
-                type='user'
-                title='Add user to project'
-                openAdd={this.toggleShowUserAssigner.bind(this)} />
+                <AddPostIt width='4'
+                  type='user'
+                  title='Add user to project'
+                  openAdd={this.toggleShowUserAssigner.bind(this)} />
+              </div>
             </div>
           </div>
         </div>

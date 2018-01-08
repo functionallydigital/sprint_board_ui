@@ -23,9 +23,11 @@ class RegisterUser extends Component {
           Register for an account
         </h2>
 
-        <UserForm showPasswordForm={true}
-          buttonText='Register'
-          submit={this.register.bind(this)} />
+        <div className='body-wrapper'>
+          <UserForm showPasswordForm={true}
+            buttonText='Register'
+            submit={this.register.bind(this)} />
+        </div>
       </div>
     )
   }

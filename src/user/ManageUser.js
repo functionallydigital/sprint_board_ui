@@ -27,10 +27,12 @@ class ManageUser extends Component {
           Manage your account details
         </h2>
 
-        <UserForm showPasswordForm={false}
-          user={user}
-          buttonText='Update'
-          submit={this.updateDetails.bind(this)} />
+        <div className='body-wrapper'>
+          <UserForm showPasswordForm={false}
+            user={user}
+            buttonText='Update'
+            submit={this.updateDetails.bind(this)} />
+        </div>
       </div>
     )
   }

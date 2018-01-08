@@ -73,6 +73,11 @@ class StoryDashboard extends Component {
     this.setState({story: story});
   }
 
+  loadProjectDashboard() {
+    const history = this.props.history;
+    history.push('/project/' + this.props.projectId);
+  }
+
   loadPopUps() {
     const showAddTask = this.state.showAddTask;
     return (
@@ -90,24 +95,27 @@ class StoryDashboard extends Component {
   render() {
     const story = this.state.story;
     return(
-      <div className='story-dashboard'>
+      <div className='story-dashboard row'>
         { story &&
           this.loadPopUps()
         }
-        <div className='row'>
+
+        <div className='body-wrapper'>
           <div className='col-sm-8 story-overview'>
             <div className='post-it-wrapper'>
               <div className='post-it story'>
                 { story && 
                   <StoryForm story={this.state.story}
                     priorities={this.props.priorities}
+                    cancel={this.loadProjectDashboard.bind(this)}
+                    cancelButton='Return to project dashboard'
                     submitButton='Update'
                     save={this.updateStory.bind(this)} />
                 }
               </div>
             </div>
 
-            <div className='row'>
+            <div className='row progress-row'>
               <div className='col-sm-6'>
                 { story && 
                   <ProgressPostIt type='story'
@@ -124,7 +132,7 @@ class StoryDashboard extends Component {
             </div>
           </div>
 
-          <div className='col-sm-4'>
+          <div className='col-sm-4 story-tasks'>
             {story && this.state.story.tasks.map((task) =>
               <TaskOverviewPostIt key={task.id}
                 projectId={this.props.projectId}

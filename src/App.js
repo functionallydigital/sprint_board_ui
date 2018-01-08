@@ -81,49 +81,47 @@ class App extends Component {
       <div>
         <Navbar user={this.state.user}
           setUser={this.setUser.bind(this)} />
-        <div className="container">
-          <Router>
-              <Switch>
-                <Route exact path='/login'
-                  component={(props) => 
-                    <LoginPage
-                      setUser={this.setUser.bind(this)}
+        <Router>
+            <Switch>
+              <Route exact path='/login'
+                component={(props) => 
+                  <LoginPage
+                    setUser={this.setUser.bind(this)}
+                    user={this.state.user}
+                    {...props} />
+                }/>
+              <Route exact path='/register'
+                component={(props) => 
+                  <RegisterUser
+                    {...props} />
+                }/>
+              <Route path='/user'
+                component={(props) =>
+                  <User
+                    session={this.state.session}
+                    user={this.state.user}
+                    setUser={this.setUser.bind(this)}
+                    {...props} />
+                }/>
+              <Route path='/project'
+                component={(props) => 
+                  <Project
+                    session={this.state.session}
+                    user={this.state.user}
+                    priorities={this.state.priorities}
+                    removeProject={this.removeProject.bind(this)}
+                    {...props} />
+                }/>
+              <Route path='/'
+                component={(props) =>
+                    <ProjectList
+                      projects={this.state.projects}
                       user={this.state.user}
                       {...props} />
-                  }/>
-                <Route exact path='/register'
-                  component={(props) => 
-                    <RegisterUser
-                      {...props} />
-                  }/>
-                <Route path='/user'
-                  component={(props) =>
-                    <User
-                      session={this.state.session}
-                      user={this.state.user}
-                      setUser={this.setUser.bind(this)}
-                      {...props} />
-                  }/>
-                <Route path='/project'
-                  component={(props) => 
-                    <Project
-                      session={this.state.session}
-                      user={this.state.user}
-                      priorities={this.state.priorities}
-                      removeProject={this.removeProject.bind(this)}
-                      {...props} />
-                  }/>
-                <Route path='/'
-                  component={(props) =>
-                      <ProjectList
-                        projects={this.state.projects}
-                        user={this.state.user}
-                        {...props} />
-                  }/>
-                <Redirect to='/'/>
-              </Switch>
-          </Router>
-        </div>
+                }/>
+              <Redirect to='/'/>
+            </Switch>
+        </Router>
       </div>
     );
   }
