@@ -40,21 +40,46 @@ class ProjectRoadmap extends Component {
     const epic = JSON.parse(event.dataTransfer.getData('epic'));
     const origin = event.dataTransfer.getData('origin');
     const originId = event.dataTransfer.getData('originId');
-    project.sprints[sprintNumber - 1].epics.push(epic);
     updateEpicSprint(this.props.session, epic.id, {sprintNumber: sprintNumber})
       .then((response) => {
         if (!response.error) {
+          project.sprints[sprintNumber - 1].epics.push(epic);
+          project.sprints[sprintNumber - 1].estimate += response.estimate;
+          project.required_velocity = response.average_velocity;
           this.setState({project: project });
           if (origin === '"project"') {
             this.removeEpicFromProject(epic);
           } else if (origin === '"sprint"') {
-            this.removeEpicFromSprint(epic, originId);
+            this.removeEpicFromSprint(epic, originId, response.estimate);
           }
         }
       })
       .catch((error) => {
         console.error(error);
       })
+  }
+
+  addEpicToProject(event) {
+    console.log(10);
+    event.preventDefault();
+    const epic = JSON.parse(event.dataTransfer.getData('epic'));
+    const origin = event.dataTransfer.getData('origin');
+    const originId = event.dataTransfer.getData('originId');
+    if (origin !== '"project"') {
+      let project = this.state.project;
+      updateEpicSprint(this.props.session, epic.id, {sprintNumber: null})
+        .then((response) => {
+          if (!response.error) {
+            project.epics.push(epic);
+            project.required_velocity = response.average_velocity;
+            this.setState({project: project });
+            this.removeEpicFromSprint(epic, originId, response.estimate);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+    }
   }
 
   removeEpicFromProject(epic) {
@@ -71,7 +96,7 @@ class ProjectRoadmap extends Component {
     this.setState({project: project });
   }
 
-  removeEpicFromSprint(epic, position) {
+  removeEpicFromSprint(epic, position, estimate) {
     let project = this.state.project;
     let index;
     for (let i = 0; i < project.sprints[position].epics.length; i++) {
@@ -81,6 +106,7 @@ class ProjectRoadmap extends Component {
     }
     if (index !== undefined) {
       project.sprints[position].epics.splice(index, 1);
+      project.sprints[position].estimate -= estimate;
     }
     this.setState({project: project });
   }
@@ -115,7 +141,7 @@ class ProjectRoadmap extends Component {
           </div>
         </div>
 
-        <div className='body-wrapper epic-list'>
+        <div className='body-wrapper epic-list' onDragOver={this.dragOver} onDrop={this.addEpicToProject.bind(this)}>
           <div className='row'>
             <div className='col-sm-1'>
               <div className='post-it-wrapper'>
