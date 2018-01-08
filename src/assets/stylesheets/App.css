@@ -62,9 +62,9 @@ h1, h2, h3 {
   padding: 5px 15px;
   -webkit-transform: rotate(3deg);
   -moz-transform: rotate(3deg);
-  -o-transform: rotate(1deg);
-  -ms-transform: rotate(1deg);
-  transform: rotate(2deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(2deg);
+  transform: rotate(1deg);
   -webkit-box-shadow: 10px 10px 5px -5px #cccccc;
   -moz-box-shadow: 10px 10px 5px -5px #cccccc;
   box-shadow: 10px 10px 5px -5px #cccccc; }
@@ -131,9 +131,61 @@ h1, h2, h3 {
   .project-backlog .backlog-list .story-description {
     margin-bottom: 40px; }
 
-.project-roadmap .roadmap-heading {
-  border-bottom: 2px solid #444444;
-  padding-bottom: 20px; }
+.project-roadmap {
+  height: 100vh; }
+  .project-roadmap .heading {
+    padding-bottom: 35px;
+    padding-top: 25px;
+    margin-bottom: 0px; }
+  .project-roadmap .body-wrapper.epic-list {
+    padding-top: 10px;
+    border-bottom: 2px solid #444444; }
+  .project-roadmap .board {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    min-height: 60%; }
+    .project-roadmap .board .body-wrapper.sprint-list {
+      padding-top: 0px;
+      padding-bottom: 0px;
+      padding-left: 0px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      white-space: nowrap;
+      margin-bottom: 10px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: #AAAAAA; }
+      .project-roadmap .board .body-wrapper.sprint-list .sprint {
+        background-color: #FFFFFF;
+        width: 250px;
+        border-right: 2px solid #444444;
+        display: inline-block;
+        white-space: nowrap;
+        padding: 0 5px;
+        height: 100%;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        vertical-align: top;
+        padding: 10px 15px; }
+        .project-roadmap .board .body-wrapper.sprint-list .sprint .sprint-dates {
+          text-align: center;
+          font-size: 16px; }
+        .project-roadmap .board .body-wrapper.sprint-list .sprint .sprint-epics {
+          height: 100%; }
+
+.epic-title {
+  width: 150px;
+  float: left;
+  white-space: initial; }
 
 .epic-dashboard .body-wrapper {
   display: flex;
