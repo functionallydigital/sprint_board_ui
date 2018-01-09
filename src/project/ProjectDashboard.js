@@ -47,6 +47,11 @@ class ProjectDashboard extends Component {
     history.push(this.props.match.url + '/roadmap');
   }
 
+  openSprint(sprintId) {
+    const history = this.props.history;
+    history.push(this.props.match.url + '/sprint/' + sprintId);
+  }
+
   editProject() {
     const history = this.props.history;
     history.push(this.props.match.url + '/config');
@@ -140,9 +145,11 @@ class ProjectDashboard extends Component {
 
             <div className='col-sm-6'>
               {project && 
-                <SprintOverviewPostIt sprint_start={project.sprint_start}
+                <SprintOverviewPostIt sprint_id={project.sprint_id}
+                  sprint_start={project.sprint_start}
                   sprint_end={project.sprint_end}
-                  sprint_completion={project.sprint_completion} />
+                  sprint_completion={project.sprint_completion}
+                  openSprint={this.openSprint.bind(this)} />
               }
             </div>
 

@@ -21,7 +21,8 @@ class RoadmapSprint extends Component {
               <EpicTitlePostIt key={`sprint-epic-${epic.id}`}
                 epic={epic}
                 origin='sprint'
-                originId={sprint.id - 1} />
+                originId={sprint.id - 1}
+                draggable='true' />
             )
           }
         </div>

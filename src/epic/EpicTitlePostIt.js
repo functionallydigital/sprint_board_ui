@@ -9,10 +9,16 @@ class EpicTitlePostIt extends Component {
 
   render() {
     const epic = this.props.epic;
+    let clickableClass;
+    if (this.props.draggable === 'true') {
+      clickableClass = ' clickable';
+    } else {
+      clickableClass = '';
+    }
     return(
       <div className='epic-title'>
         <div className='post-it-wrapper'>
-          <div className='post-it epic clickable' draggable='true' onDragStart={this.drag.bind(this)}>
+          <div className={`post-it epic${clickableClass}`} draggable={this.props.draggable} onDragStart={this.drag.bind(this)}>
             <h3>{epic.name}</h3>
           </div>
         </div>
