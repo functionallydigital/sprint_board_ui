@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import EpicBacklogPostIt from '../epic/EpicBacklogPostIt'
-import BacklogUserPostIt from '../user/BacklogUserPostIt'
-import StoryUserAssigner from '../user/StoryUserAssigner'
+import EpicBacklogPostIt from '../epic/EpicBacklogPostIt';
+import BacklogUserPostIt from '../user/BacklogUserPostIt';
+import StoryUserAssigner from '../user/StoryUserAssigner';
 import EditIcon from '../assets/images/edit-icon.png';
 
 class StoryBacklogPostIt extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      story: {},
-      displayUserAssigner: false
+      story: null,
+      displayUserAssigner: false,
+      hover: false,
+      enterCounter: 0
     }
   }
 
@@ -25,7 +27,7 @@ class StoryBacklogPostIt extends Component {
 
   openEdit() {
     const history = this.props.history
-    history.push('/project/' + this.props.projectId + '/story/' + this.state.story.id + '/edit')
+    history.push('/project/' + this.props.projectId + '/story/' + this.state.story.id )
   }
 
   toggleUserAssignerDisplay() {
@@ -38,13 +40,46 @@ class StoryBacklogPostIt extends Component {
     this.setState({story: story})
   }
 
+  dragStart(event) {
+    event.dataTransfer.effectAllowed = 'move';
+    this.props.dragStart(this.state.story);
+  }
+
+  dragOver(event) {
+    event.preventDefault();
+  }
+
+  drop(event) {
+    event.preventDefault();
+    this.props.drop(event, this.state.story);
+    this.setState({hover: false});
+  }
+
+  dragEnter(event) {
+    event.preventDefault();
+    const enterCounter = this.state.enterCounter + 1;
+    this.setState({hover: true,
+                    enterCounter: enterCounter});
+  }
+
+  dragLeave(event) {
+    event.preventDefault();
+    const enterCounter = this.state.enterCounter - 1;
+    if (enterCounter === 0) {
+      this.setState({hover: false,
+                      enterCounter: enterCounter});
+    } else {
+      this.setState({enterCounter: enterCounter});
+    }
+  }
+
   render() {
     const story = this.state.story;
     const id = 'post-it-' + story.id;
     let showDetails = story && story.showDetails;
     let showUserAssigner = this.state.displayUserAssigner;
     return (
-      <div className='post-it-wrapper'>
+      <div className={`post-it-wrapper${this.state.hover ? ' over' : ''}`}>
         { showUserAssigner && 
           <StoryUserAssigner story={story}
             session={this.props.session}
@@ -52,7 +87,8 @@ class StoryBacklogPostIt extends Component {
             updateUser={this.updateUser.bind(this)}
             closeUserAssigner={this.toggleUserAssignerDisplay.bind(this)} />
         }
-        <div id={id} className='post-it story' draggable='true'>
+        <div id={id} className='post-it story' draggable='true' onDragStart={this.dragStart.bind(this)} onDragOver={this.dragOver} onDrop={this.drop.bind(this)}
+           onDragEnter={this.dragEnter.bind(this)} onDragLeave={this.dragLeave.bind(this)}>
           <div className='row'>
             <div className='col-md-3 col-sm-4'>
               <EpicBacklogPostIt

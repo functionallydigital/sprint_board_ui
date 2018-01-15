@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AddIcon from '../assets/images/add-icon.png';
 
-class AddProjectPostIt extends Component {
+class AddPostIt extends Component {
   render() {
     const width = this.props.width;
     const openAdd = this.props.openAdd;
@@ -21,4 +21,4 @@ class AddProjectPostIt extends Component {
   }
 }
 
-export default AddProjectPostIt;
+export default AddPostIt;
