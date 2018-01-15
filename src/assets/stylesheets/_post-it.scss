@@ -1,6 +1,12 @@
 .post-it {
   &-wrapper {
     padding:7px;
+
+    &.over {
+      padding-top: 50px;
+      border-top: 2px solid #000000;
+      margin-top: 50px;
+    }
   }
 
   padding: 5px 15px;
@@ -19,6 +25,17 @@
 
   &.right {
     float: right;
+  }
+
+  &.sprint {
+    white-space: normal;
+    h3 {
+      font-size: 20px;
+    }
+
+    h4 {
+      font-size: 14px;
+    }
   }
 
   &.meta {

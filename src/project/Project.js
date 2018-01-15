@@ -4,6 +4,7 @@ import ProjectEdit from './ProjectEdit';
 import ProjectCreate from './ProjectCreate';
 import ProjectBacklog from './ProjectBacklog';
 import ProjectRoadmap from './ProjectRoadmap';
+import Sprint from '../sprint/Sprint';
 import Epic from '../epic/Epic';
 import Story from '../story/Story';
 import { Redirect, Switch, Route } from 'react-router-dom';
@@ -50,6 +51,14 @@ class Project extends Component {
     )
   }
 
+  loadSprint(props) {
+    return (
+      <Sprint projectId={props.match.params.projectId}
+        session={this.props.session}
+        {...props} />
+    )
+  }
+
   loadStory(props) {
     return (
       <Story projectId={props.match.params.projectId}
@@ -76,6 +85,7 @@ class Project extends Component {
     const projectBacklogUrl = `${this.props.match.url}/:projectId/backlog`;
     const storyUrl = `${this.props.match.url}/:projectId/story`;
     const epicUrl = `${this.props.match.url}/:projectId/epic`;
+    const sprintUrl = `${this.props.match.url}/:projectId/sprint`;
     const roadmapUrl = `${this.props.match.url}/:projectId/roadmap`;
     if (user) {
       return (
@@ -97,6 +107,9 @@ class Project extends Component {
           }/>
           <Route path={roadmapUrl}
             render={(props) => {return this.loadProjectRoadmap(props)}
+          }/>
+          <Route path={sprintUrl}
+            render={(props) => {return this.loadSprint(props)}
           }/>
           <Route path={dashboardUrl}
             render={(props) => {return this.loadDashboard(props)}

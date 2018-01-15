@@ -30,6 +30,11 @@ class ProjectRoadmap extends Component {
     history.push('/project/' + this.props.projectId + '/config');
   }
 
+  openDashboard() {
+    const history = this.props.history;
+    history.push('/project/' + this.state.project.id)
+  }
+
   dragOver(event) {
     event.preventDefault();
   }
@@ -139,11 +144,17 @@ class ProjectRoadmap extends Component {
               <h4>{project && project.required_velocity}</h4>
             </div>
           </div>
+
+          <div className='col-sm-2'>
+            <div className='post-it button fitted clickable right' onClick={this.openDashboard.bind(this)}>
+              View Dashboard
+            </div>
+          </div>
         </div>
 
         <div className='body-wrapper epic-list' onDragOver={this.dragOver} onDrop={this.addEpicToProject.bind(this)}>
           <div className='row'>
-            <div className='col-sm-1'>
+            <div className='col-md-1 col-sm-2'>
               <div className='post-it-wrapper'>
                 <div className='post-it meta'>
                   <h3>Epics</h3>
@@ -151,11 +162,12 @@ class ProjectRoadmap extends Component {
               </div>
             </div>
 
-            <div className='col-sm-11'>
+            <div className='col-md-11 col-sm-10'>
               { project && project.epics.map((epic) => 
                   <EpicTitlePostIt key={`epic-${epic.id}`}
                     epic={epic}
-                    origin='project' />
+                    origin='project'
+                    draggable='true' />
                 )
               }
             </div>

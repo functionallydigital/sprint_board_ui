@@ -82,3 +82,36 @@ export function updateAssignedUser(session, storyId, user) {
       console.error(error);
     });
 }
+
+export function updateStoryStage(session, storyId, stage) {
+  return fetch(`${global.apiUrl}/stories/${storyId}/update_stage`, {
+    method: 'POST',
+      headers : {
+        'Accept' : 'application/json',
+        'Content-Type': 'application/json',
+        'SessionKey' : session.session_key
+      },
+      body: JSON.stringify(stage)
+    })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+export function updateStoryPosition(session, storyId, newPosition) {
+  return fetch(`${global.apiUrl}/stories/${storyId}/update_position`, {
+    method: 'POST',
+      headers : {
+        'Accept' : 'application/json',
+        'Content-Type': 'application/json',
+        'SessionKey' : session.session_key
+      },
+      body: JSON.stringify(newPosition)
+    })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
