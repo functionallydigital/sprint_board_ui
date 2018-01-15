@@ -1,9 +1,71 @@
 .sprint-board {
+  height: 100vh;
+
   .heading {
-    display: flex;
-    
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+
+    .row {
+      display: flex;
+
+      .post-it-wrapper {
+        padding-top: 20px;
+        padding-bottom: 30px;
+      }
+    }
+
     .epics-list {
       border-left: 2px solid #444444;
+    }
+  }
+
+
+  .progress-board {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+
+    .story-list {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      white-space: nowrap;
+      margin-bottom: 10px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: #AAAAAA;
+
+      .body-wrapper {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+
+        .story-row, .header-row {
+          display: flex;
+
+          .stage {
+            background-color: #FFFFFF;
+            width: 300px;
+            border-right: 2px solid #444444;
+            border-bottom: 2px solid #444444;
+            display: inline-block;
+            white-space: nowrap;
+            padding: 0 5px;
+            height: 100%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            vertical-align: top;
+            padding: 10px 15px;
+          }
+        }
+      }
     }
   }
 }

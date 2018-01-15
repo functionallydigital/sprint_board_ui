@@ -88,7 +88,7 @@ class StoryOverviewPostIt extends Component {
                 </div>
 
                 <div className='col-xs-4'>
-                  Task count: 0
+                  Task count: {story.tasks.length}
                 </div>
               </div>
             </div>

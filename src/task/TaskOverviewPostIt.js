@@ -4,14 +4,27 @@ import TaskEditer from '../task/TaskEditer';
 import DeleteConfirmation from '../layout/DeleteConfirmation';
 import { deleteTask } from '../api/TaskRequestHandler';
 import DeleteIcon from '../assets/images/delete-icon.png';
+import TaskUserAssigner from '../user/TaskUserAssigner';
 
 class TaskOverviewPostIt extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      task: null,
       showEditTask: false,
-      showDeleteConfirmation: false
+      showDeleteConfirmation: false,
+      displayUserAssigner: false
     }
+  }
+
+  componentWillMount() {
+    this.setState({task: this.props.task})
+  }
+
+  updateUser(user) {
+    const task = this.state.task;
+    task.user = user;
+    this.setState({task: task})
   }
 
   deleteTask() {
@@ -29,6 +42,10 @@ class TaskOverviewPostIt extends Component {
       })
   }
 
+  toggleAssignUser() {
+    this.setState({displayUserAssigner: !this.state.displayUserAssigner})
+  }
+
   toggleShowEditTask() {
     this.setState({showEditTask: !this.state.showEditTask});
   }
@@ -38,8 +55,10 @@ class TaskOverviewPostIt extends Component {
   }
 
   loadPopUps() {
+    const task = this.props.task;
     const showDeleteConfirmation = this.state.showDeleteConfirmation;
     const showEditTask = this.state.showEditTask;
+    const showUserAssigner = this.state.displayUserAssigner;
     return (
       <div id='pop-ups'>
         { showDeleteConfirmation &&
@@ -48,17 +67,25 @@ class TaskOverviewPostIt extends Component {
             message='this task' />
         }
         { showEditTask &&
-          <TaskEditer task={this.props.task}
+          <TaskEditer task={task}
             session={this.props.session}
             cancel={this.toggleShowEditTask.bind(this)}
             updateTaskList={this.props.updateTaskList.bind(this)} />
+        }
+        { showUserAssigner && 
+          <TaskUserAssigner task={task}
+            session={this.props.session}
+            projectId={this.props.projectId}
+            updateUser={this.updateUser.bind(this)}
+            closeUserAssigner={this.toggleAssignUser.bind(this)} />
         }
       </div>
     )
   }
 
   render() {
-    const task = this.props.task;
+    const task = this.state.task;
+    console.log(task)
     return (
       <div className='post-it-wrapper'>
         { task &&
@@ -67,9 +94,8 @@ class TaskOverviewPostIt extends Component {
         <div id={task.id} className='post-it task' draggable='true'>
           <div className='row'>
             <div className='col-md-6 col-sm-6'>
-              <BacklogUserPostIt
-                user={task.user}
-                 />
+              <BacklogUserPostIt user={task.user}
+                openUserAssigner={this.toggleAssignUser.bind(this)} />
             </div>
 
             <div className='col-md-6 col-sm-6'>

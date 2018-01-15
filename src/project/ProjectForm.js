@@ -139,6 +139,7 @@ class ProjectForm extends Component {
                 <div className='col-sm-6'>
                   {this.state.project.steps && this.state.project.steps.map((step) =>
                     <ConfigProgressStepPostIt key={step.id}
+                      draggable='true'
                       step={step} />
                   )}
                 </div>
