@@ -44,7 +44,9 @@ class App extends Component {
 
   setUser(user, session) {
     this.setState({user: user, session: session}, () => {
-      this.loadProjects();
+      if (user) {
+        this.loadProjects();
+      }
     })
     sessionStorage.setItem('session', JSON.stringify(session));
     sessionStorage.setItem('user', JSON.stringify(user));
