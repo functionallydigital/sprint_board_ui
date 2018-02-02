@@ -46,6 +46,7 @@ class StoryBacklogPostIt extends Component {
   }
 
   dragOver(event) {
+    console.log(20)
     event.preventDefault();
   }
 
@@ -79,7 +80,8 @@ class StoryBacklogPostIt extends Component {
     let showDetails = story && story.showDetails;
     let showUserAssigner = this.state.displayUserAssigner;
     return (
-      <div className={`post-it-wrapper${this.state.hover ? ' over' : ''}`}>
+      <div className={`post-it-wrapper${this.state.hover ? ' over' : ''}`} onDragOver={this.dragOver}
+       onDragEnter={this.dragEnter.bind(this)} onDragLeave={this.dragLeave.bind(this)}>
         { showUserAssigner && 
           <StoryUserAssigner story={story}
             session={this.props.session}
@@ -87,8 +89,7 @@ class StoryBacklogPostIt extends Component {
             updateUser={this.updateUser.bind(this)}
             closeUserAssigner={this.toggleUserAssignerDisplay.bind(this)} />
         }
-        <div id={id} className='post-it story' draggable='true' onDragStart={this.dragStart.bind(this)} onDragOver={this.dragOver} onDrop={this.drop.bind(this)}
-           onDragEnter={this.dragEnter.bind(this)} onDragLeave={this.dragLeave.bind(this)}>
+        <div id={id} className='post-it story' draggable='true' onDragStart={this.dragStart.bind(this)} onDrop={this.drop.bind(this)}>
           <div className='row'>
             <div className='col-md-3 col-sm-4'>
               <EpicBacklogPostIt

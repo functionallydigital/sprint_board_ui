@@ -5,6 +5,7 @@ import AddPostIt from '../layout/AddPostIt';
 import SprintForm from '../sprint/SprintForm';
 import { loadProjectBacklog } from '../api/ProjectRequestHandler';
 import { updateStoryPosition } from '../api/StoryRequestHandler';
+import { createSprint } from '../api/SprintRequestHandler';
 
 class ProjectBacklog extends Component {
   constructor(props) {
@@ -34,10 +35,12 @@ class ProjectBacklog extends Component {
   }
 
   dragStart(story) {
+    console.log(10)
     this.setState({movingStory: story});
   }
 
   drop(event, story) {
+    console.log(50)
     if (this.state.movingStory.id !== story) {
       updateStoryPosition(this.props.session, this.state.movingStory.id, {newPosition: story.position})
         .then((response) => {
@@ -51,15 +54,39 @@ class ProjectBacklog extends Component {
     }
   }
 
+  addNewSprint() {
+    const project = this.state.project;
+    project.sprints.push({});
+    this.setState({project: project});
+    this.toggleshowSprintAdder();
+  }
+
   toggleshowSprintAdder() {
     this.setState({showSprintAdder: !this.state.showSprintAdder});
   }
 
   createSprint(sprint) {
+    let that = this;
+    const project = this.state.project;
+    sprint.project_id = project.id;
+    createSprint(this.props.session, sprint)
+      .then((response) => {
+        if (!response.error) {
+          that.setState({project: response});
+          this.toggleshowSprintAdder();
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
     console.log('saving sprint')
   }
 
   cancelNewSprint() {
+    const project = this.state.project;
+    const lastPosition = project.sprints.length - 1
+    project.sprints.splice(lastPosition, 1);
+    this.setState({project: project});
     this.toggleshowSprintAdder();    
   }
 
@@ -87,11 +114,11 @@ class ProjectBacklog extends Component {
         <div className='body-wrapper'>
           <div className='backlog-list'>
 
-            { project && project.sprints.map((sprint) =>
-              <div className='backlog-sprint'>
+            { project && project.sprints.map((sprint, index) =>
+              <div className='backlog-sprint' key={index}>
                 <div className='row'>
                   <div className='col-sm-8'>
-                    { sprint.stories.map((story) =>
+                    { sprint.stories && sprint.stories.map((story) =>
                       <StoryBacklogPostIt 
                         key={story.id}
                         projectId={project.id}
@@ -132,7 +159,7 @@ class ProjectBacklog extends Component {
                 <AddPostIt width='2 col-sm-offset-1'
                   type='meta'
                   title='Create new sprint'
-                  openAdd={this.toggleshowSprintAdder.bind(this)} />
+                  openAdd={this.addNewSprint.bind(this)} />
               }
             </div>
           </div>
